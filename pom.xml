@@ -14,7 +14,41 @@
         <module>shop_common_db</module>
         <module>shop_service</module>
         <module>shop_service_api</module>
+        <module>shop_gateway</module>
+        <module>shop_web</module>
     </modules>
-
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.4.RELEASE</version>
+    </parent>
+    <!--打包时跳过单元测试
+    mvn clean package -Dmaven.test.skip=true
+    mvn clean package
+    -->
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+    <!--依赖包-->
+    <dependencies>
+        <!--测试包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <!--dependencyManagement标签下控制版本号不下载jar包-->
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Greenwich.SR1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
