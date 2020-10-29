@@ -4,6 +4,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * @author chenjunxu
+ */
 @Table(name="tb_brand")
 public class Brand implements Serializable {
 
