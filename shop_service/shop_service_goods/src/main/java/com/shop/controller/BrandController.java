@@ -1,5 +1,7 @@
 package com.shop.controller;
 
+import com.github.pagehelper.Page;
+import com.shop.entity.PageResult;
 import com.shop.entity.Result;
 import com.shop.entity.StatusCode;
 import com.shop.pojo.Brand;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenjunxu
@@ -33,10 +36,21 @@ public class BrandController {
         brandService.add(brand);
         return new Result(true, StatusCode.OK,"添加成功");
     }
-    @PutMapping("/{id}")
-    public Result update(@RequestBody Brand brand, @PathVariable Integer id){
-        brand.setId(id);
+    @PutMapping("update")
+    public Result update(@RequestBody Brand brand){
         brandService.update(brand);
         return new Result(true, StatusCode.OK,"修改成功");
     }
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id){
+        brandService.delete(id);
+        return new Result(true, StatusCode.OK,"删除成功");
+    }
+    @GetMapping("/searchPage/{pageNo}/{pageSize}")
+    public Result searchPage(@RequestParam Map<String,String> searchMap,@PathVariable int pageNo,@PathVariable int pageSize){
+        Page page = brandService.searchPage(searchMap, pageNo, pageSize);
+        PageResult pageResult = new PageResult(page.getTotal(),page.getResult());
+        return new Result(true, StatusCode.OK,"分页查询成功",pageResult);
+    }
+
 }
